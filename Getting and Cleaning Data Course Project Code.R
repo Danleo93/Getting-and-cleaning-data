@@ -23,3 +23,10 @@ test$activity<-y_test$V1 #I include a new column with the activity informations 
 mydata<-rbind(train,test) #I merge the two data frames (STEP1)
 mydata$activity<-as.factor(mydata$activity) 
 levels(mydata$activity)<-as.character(activities$V2) #I assign the right esplicative activity labels to the column that contains the activities code (STEP3)
+
+col_mean_std<-grep(pattern = "mean\\(\\)|std\\(\\)|activity|subject",x=names(mydata)) #I obtain the column index of column named with std, mean, subject or activity
+data_mean_std<-mydata[,col_mean_std] #I use this index to extract the right data (STEP2)
+library(reshape2)
+melted_data<-melt(data_mean_std,id=c("subject","activity"),measure.vars = names(data_mean_std[,1:66])) #I melt subject and activity data 
+tidydata<-dcast(melted_data,subject~activity,mean) #I obtain my tidy data containing the mean for each subject for each activity
+write.table(tidydata,file="tidydata.txt", row.names = F) #I wirte this data in a txt table
