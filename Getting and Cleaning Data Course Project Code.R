@@ -1,4 +1,4 @@
-newwd<-setwd("C:/Users/danie/Desktop/Coursera/course 3 cleaning data/week4 file peer/files peer" )
+newwd<-setwd("insert the path of the directory in which are included all the files needed for the analisys" )
 features<-read.table("features.txt")
 activities<-read.table("activity_labels.txt")  #I read all the files that will be helpfull to assign the right variables name and acitivity informations
 
